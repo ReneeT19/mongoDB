@@ -137,3 +137,32 @@ db.test.updateOne({"_id": ObjectId("5f9840e9b2c3cf9c0b8f42e3")}, {
         "tags.$": "NoSQL"
     }
 })
+
+db.test.find({"relational": false}, {
+    "_id": 0, 
+    "name":1,
+"description":1
+}).pretty()
+
+db.test.find({"relational": false}, {
+    "name":1,
+"description":1
+}).pretty()
+
+//Booleans
+db.test.find({
+    $and: [
+    {"relational": true},
+    {"name":"MySQL"}
+    ]
+}).pretty()
+
+// find users where json greater than 100
+db.test.find({"users": {$gt: 100}}).pretty()
+// find tags where json document that has matching values in an array
+db.test.find({"tags": {$in: ["free"]}}).pretty()
+
+db.test.find().skip(3).pretty()
+db.test.find().sort({"name": 1}).pretty() //1 ascending; -1 descending
+db.test.find({}) //you can pass in an empty object to find
+db.test.find({}).count()
